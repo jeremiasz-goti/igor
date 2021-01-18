@@ -28,20 +28,24 @@ def igor_talk(phrase):
 
     # play text
     driver.find_element(By.ID, 'vorlesenbutton').click()
-    time.sleep(10)
+    time.sleep(5)
 
-    driver.quit()
 
 # speech recognition
 r = sr.Recognizer()
 mic = sr.Microphone()
 
-
-with mic:
-    print('Powiedz coś:> ')
-    mic_audio = r.listen(mic)
-    mic_data = r.recognize_google(mic_audio)
-    print(mic_data)
+while True:
+    with mic:
+        try:
+            print('Yes my Master...?:> ')
+            mic_audio = r.listen(mic)
+            mic_data = r.recognize_google(audio_data=mic_audio, language='pl-PL')
+            igor_talk(mic_data)
+        except sr.UnknownValueError:
+            igor_talk('Nie rozumiem mój panie')
+        except sr.RequestError:
+            igor_talk('Problemy z połączeniem mój panie')
 
 
 
