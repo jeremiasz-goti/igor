@@ -1,3 +1,6 @@
 venv/
 geckodriver.log
+blackbook.py
+Pipfile
+Pipfile.lock
 .idea/
