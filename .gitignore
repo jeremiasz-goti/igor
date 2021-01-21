@@ -4,3 +4,5 @@ blackbook.py
 Pipfile
 Pipfile.lock
 .idea/
+.vscode/
+audio/dynamic/
