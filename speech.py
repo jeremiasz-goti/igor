@@ -1,5 +1,4 @@
 import os
-
 import speech_recognition as sr
 import webbrowser
 import requests
@@ -40,9 +39,7 @@ while True:
 
     if 'pogoda' in mic_data:
         igor_talk('Gdzie?')
-        weather_audio = r.listen(mic)
-        weather_data = r.recognize_google(
-            audio_data=weather_audio, language='pl-PL')
+        weather_data = igor_listen()
         weather_key = '8cbfad668c33b1bdce19655af03e5458'
         weather_url = 'https://api.openweathermap.org/data/2.5/weather?q={}&appid={}&units=metric&lang=pl'.format(
             weather_data, weather_key)
