@@ -27,12 +27,20 @@ def igor_talk(phrase):
 # listen for input on microphone
 def igor_listen():
     with sr.Microphone() as mic:
-        # listen for microphone audo
-        mic_audio = r.listen(mic)
-        # dump micropgone audio to text
-        mic_data = r.recognize_google(mic_audio, language='pl-PL')
-        # return speech to text
-        return mic_data
+        try:
+            # listen for microphone audo
+            mic_audio = r.listen(mic)
+            # dump micropgone audio to text
+            mic_data = r.recognize_google(mic_audio, language='pl-PL')
+            # return speech to text
+            return mic_data
+        # error handling - unknown command
+        except sr.UnknownValueError:
+            print('Nie rozumiem polecenia')
+            pass
+        # error handling - problem with request
+        except sr.RequestError:
+            print('request error')
 
 # search in google
 def igor_search(igor_listen):
@@ -60,6 +68,8 @@ def igor_weather(igor_listen):
     weather_response = requests.get(weather_url)
     # load api response to a json file
     weather_response_data = json.loads(weather_response.text)
+    print(weather_response_data["main"]["feels_like"])
+    print(type(weather_response_data["main"]["feels_like"]))
     # creating list for weather conditions to append to
     weather_description = []
     # loop through weather conditions
@@ -67,35 +77,32 @@ def igor_weather(igor_listen):
     # append weather conditions to list
         weather_description.append(d["description"])
     # return weather to speak function
-    igor_talk('Temperatura wynosi {} stopni... a odczuwalna temperatura to {}... warunki panujące na zewnątrz to {}'.format(weather_response_data["main"]["temp"], weather_response_data["main"]["feels_like"], weather_description))
+    igor_talk('Temperatura wynosi {} stopni... a odczuwalna temperatura to około {} stopnia... warunki panujące na zewnątrz to {}'.format(
+        weather_response_data["main"]["temp"], str(round(weather_response_data["main"]["feels_like"], 1)), weather_description))
 
 
 while True:
-    mic_data = igor_listen()
+    print("slucham")
+    word = igor_listen()
     # listen for wake word
-    try:
-        if 'igor' in mic_data:
-        # respond to wake word
-            igor_talk('Tak panie?')
-        # listen for commands
+    try:    
+        if 'ahoj' in word:
+            igor_talk('rozkazuj')
             try:
-        # search for text in google
+                # give voice command to trigger functions
                 command = igor_listen()
+                # search google
                 if 'szukaj' in command:
                     igor_search(igor_listen)
-        # search for weather
+                # search for weather
                 if 'pogoda' in command:
                     igor_weather(igor_listen)
-
-        # error handling - unknown command
+            # error handling - unknown command
             except sr.UnknownValueError:
                 igor_talk('Nie rozumiem polecenia')
-        # error handling - problem with request    
+            # error handling - problem with request
             except sr.RequestError:
                 igor_talk('request error')
-    # error handling - unknown command
-    except sr.UnknownValueError:
-        igor_talk('Nie rozumiem polecenia')
-    # error handling - problem with request    
-    except sr.RequestError:
-        igor_talk('request error')
+    # error handling - no wake word            
+    except TypeError:
+        print('brak komend')
