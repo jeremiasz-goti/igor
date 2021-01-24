@@ -6,7 +6,7 @@ from datetime import datetime, date
 # check time
 def igor_time():
     # return current time
-    return datetime.utcnow().strftime("%H:%M")
+    return 'Jest {}'.format(datetime.utcnow().strftime("%H:%M"))
 
 # check date
 def igor_date():
@@ -41,6 +41,9 @@ def igor_weather(location):
     return 'Temperatura wynosi {} stopni... a odczuwalna temperatura to około {} stopnia... warunki panujące na zewnątrz to {}'.format(
         weather_response_data["main"]["temp"], str(round(weather_response_data["main"]["feels_like"], 1)), weather_description)
 
-def igor_zakupy():
-    pass
+# def igor_shopping(shopping_item):
+#     shopping_list = []
+#     shopping_list.append(shopping_item)
+#     return shopping_list
+
 

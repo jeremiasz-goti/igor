@@ -2,6 +2,7 @@ import listen
 import icmd
 import speech_recognition as sr
 import speak
+import mailer
 
 while True:
     print("slucham")
@@ -35,8 +36,21 @@ while True:
                     weather_report = icmd.igor_weather(location)
                     speak.igor_speak(weather_report)
                 # shoping list
-                if 'zakupy' in command:
-                    pass
+                if 'zakupy' in command:                    
+                    speak.igor_speak('Otwieram liste zakupów')
+                    products_list = []
+                    while True:
+                        speak.igor_speak('Jaki produkt dodać?')
+                        item = listen.igor_listen()
+                        products_list.append(item)
+                        print(products_list)
+                        if 'koniec' in item:
+                            break
+                    speak.igor_speak('Co teraz?')
+                    shopping_list_option = listen.igor_listen()
+                    if 'poczta' in shopping_list_option:
+                        mailer.igor_mailer(products_list)
+                        speak.igor_speak('Wysłane')
             # error handling - unknown command
             except sr.UnknownValueError:
                 print('Nie rozumiem polecenia')

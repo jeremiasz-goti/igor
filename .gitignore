@@ -1,8 +1,9 @@
-venv/
+venv
 geckodriver.log
 blackbook.py
 Pipfile
 Pipfile.lock
-.idea/
-.vscode/
+.idea
+.vscode
 audio/dynamic/
+mailer.py
