@@ -1,7 +1,17 @@
 import webbrowser
 import requests
 import json
+from datetime import datetime, date
 
+# check time
+def igor_time():
+    # return current time
+    return datetime.utcnow().strftime("%H:%M")
+
+# check date
+def igor_date():
+    # return current date
+    return 'Dziś jest {}'.format(date.today().strftime('%d %B'))
 
 # search in google
 def igor_search(search_data):
@@ -13,7 +23,6 @@ def igor_search(search_data):
 
 # check weather in given city
 def igor_weather(location):
-    # save a city name in a variable
     # open weather api key
     weather_key = '8cbfad668c33b1bdce19655af03e5458'
     # open wather api endpoint

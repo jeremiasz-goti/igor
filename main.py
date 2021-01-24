@@ -3,7 +3,6 @@ import icmd
 import speech_recognition as sr
 import speak
 import icmd
-import time
 
 
 while True:
@@ -17,13 +16,21 @@ while True:
             try:
                 # give voice command to trigger functions
                 command = listen.igor_listen()
-                # search google
+                # report current time
+                if 'godzina' in command:
+                    time_report = icmd.igor_time()
+                    speak.igor_speak(time_report)
+                # report current date
+                if 'dzień' in command:
+                    date_report = icmd.igor_date()
+                    speak.igor_speak(date_report)
+                # open search in google
                 if 'szukaj' in command:
                     speak.igor_speak('Co wyszukać')
                     search = listen.igor_listen()
                     search_report = icmd.igor_search(search)
                     speak.igor_speak(search_report)
-                # search for weather
+                # report  weather
                 if 'pogoda' in command:
                     speak.igor_speak('Gdzie')
                     location = listen.igor_listen()
