@@ -1,6 +1,9 @@
 import listen
 import icmd
 import speech_recognition as sr
+import speak
+import icmd
+import time
 
 
 while True:
@@ -16,10 +19,16 @@ while True:
                 command = listen.igor_listen()
                 # search google
                 if 'szukaj' in command:
-                    icmd.igor_search()
+                    speak.igor_speak('Co wyszukać')
+                    search = listen.igor_listen()
+                    search_report = icmd.igor_search(search)
+                    speak.igor_speak(search_report)
                 # search for weather
                 if 'pogoda' in command:
-                    icmd.igor_weather()
+                    speak.igor_speak('Gdzie')
+                    location = listen.igor_listen()
+                    weather_report = icmd.igor_weather(location)
+                    speak.igor_speak(weather_report)
             # error handling - unknown command
             except sr.UnknownValueError:
                 print('Nie rozumiem polecenia')
