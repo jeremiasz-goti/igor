@@ -14,7 +14,8 @@ def igor_speak(phrase):
     # playing back response mp3 with playsound
     playsound.playsound(igor_response)
     # remove dynamic audio file
-    os.remove(path=igor_response)
+    # os.remove(path=igor_response)
+
     
 
 

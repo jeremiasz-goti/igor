@@ -1,9 +1,7 @@
 import speech_recognition as sr
 
-
 # speech recognition init
 r = sr.Recognizer()
-
 
 # listen for input on microphone
 def igor_listen():

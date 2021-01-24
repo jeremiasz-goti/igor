@@ -20,7 +20,6 @@ def igor_search(search_data):
     # report finishing task
     return 'Wyszukiwanie zakończone'
 
-
 # check weather in given city
 def igor_weather(location):
     # open weather api key
@@ -41,3 +40,7 @@ def igor_weather(location):
     # return weather to speak function
     return 'Temperatura wynosi {} stopni... a odczuwalna temperatura to około {} stopnia... warunki panujące na zewnątrz to {}'.format(
         weather_response_data["main"]["temp"], str(round(weather_response_data["main"]["feels_like"], 1)), weather_description)
+
+def igor_zakupy():
+    pass
+
