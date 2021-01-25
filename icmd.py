@@ -2,6 +2,8 @@ import webbrowser
 import requests
 import json
 from datetime import datetime, date
+from bs4 import BeautifulSoup
+
 
 # check time
 def igor_time():
@@ -45,5 +47,12 @@ def igor_weather(location):
 #     shopping_list = []
 #     shopping_list.append(shopping_item)
 #     return shopping_list
+
+# play youtube
+# def igor_youtube(youtube_search):
+#     base_url = requests.get('https://www.youtube.com/results?search_query={}'.format(youtube_search))
+#     soup = BeautifulSoup(base_url, 'html.parser')
+#     print(soup)
+
 
 

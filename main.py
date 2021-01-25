@@ -16,6 +16,8 @@ while True:
                 # give voice command to trigger functions
                 command = listen.igor_listen()
                 # report current time
+                if 'koniec' in command:
+                    exit()
                 if 'godzina' in command:
                     time_report = icmd.igor_time()
                     speak.igor_speak(time_report)
@@ -42,15 +44,18 @@ while True:
                     while True:
                         speak.igor_speak('Jaki produkt dodać?')
                         item = listen.igor_listen()
-                        products_list.append(item)
-                        print(products_list)
-                        if 'koniec' in item:
+                        if item != 'koniec':
+                            products_list.append(item)
+                        else:
                             break
                     speak.igor_speak('Co teraz?')
                     shopping_list_option = listen.igor_listen()
                     if 'poczta' in shopping_list_option:
-                        mailer.igor_mailer(products_list)
+                        mailer.igor_mail(products_list)
                         speak.igor_speak('Wysłane')
+                if 'youtube' in command:
+                    speak.igor_speak('Co włączyć?')
+
             # error handling - unknown command
             except sr.UnknownValueError:
                 print('Nie rozumiem polecenia')
