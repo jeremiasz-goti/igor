@@ -1,8 +1,11 @@
+import subprocess
 import webbrowser
 import requests
 import json
+import alsaaudio
 from datetime import datetime, date
-from bs4 import BeautifulSoup
+from youtubesearchpython import VideosSearch
+
 
 
 # check time
@@ -48,11 +51,17 @@ def igor_weather(location):
 #     shopping_list.append(shopping_item)
 #     return shopping_list
 
-# play youtube
-# def igor_youtube(youtube_search):
-#     base_url = requests.get('https://www.youtube.com/results?search_query={}'.format(youtube_search))
-#     soup = BeautifulSoup(base_url, 'html.parser')
-#     print(soup)
+#play youtube
+def igor_youtube(youtube_search):
+    youtube_search_result = VideosSearch(youtube_search, limit=1).result()
+    webbrowser.open_new(youtube_search_result["result"][0]["link"])
+    return ('Wyszukiwanie zakończone. Wyszukiwana fraza to: ' + youtube_search)
 
-
+def igor_volume(volume):
+    am = alsaaudio.Mixer()
+    base_volume = am.getvolume()
+    if volume == 'głośniej':
+            subprocess.call(["amixer", "-D", "pulse", "sset", "Master", str(base_volume[0] + 10 ) + '%'])
+    if volume == 'ciszej':
+                    subprocess.call(["amixer", "-D", "pulse", "sset", "Master", str(base_volume[0] - 10 ) + '%'])
 

@@ -9,7 +9,9 @@ while True:
     # listen for wake word
     word = listen.igor_listen()
     try:
-        # if wake word is activated, start giving cmmands   
+        # if wake word is activated, start giving cmmands
+        if 'głośniej' or 'ciszej' in word:
+            icmd.igor_volume(word)   
         if 'ahoj' in word:
             speak.playsound.playsound(r'audio/static/command.mp3')
             try:
@@ -53,9 +55,10 @@ while True:
                     if 'poczta' in shopping_list_option:
                         mailer.igor_mail(products_list)
                         speak.igor_speak('Wysłane')
-                if 'youtube' in command:
+                if 'muzyka' in command:
                     speak.igor_speak('Co włączyć?')
-
+                    youtube_search = listen.igor_listen()
+                    icmd.igor_youtube(youtube_search)
             # error handling - unknown command
             except sr.UnknownValueError:
                 print('Nie rozumiem polecenia')
