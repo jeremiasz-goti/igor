@@ -8,24 +8,24 @@ from youtubesearchpython import VideosSearch
 
 
 
-# check time
+#   check time
 def igor_time():
     # return current time
     return 'Jest {}'.format(datetime.utcnow().strftime("%H:%M"))
 
-# check date
+#   check date
 def igor_date():
     # return current date
     return 'Dziś jest {}'.format(date.today().strftime('%d %B'))
 
-# search in google
+#   search in google
 def igor_search(search_data):
     # open webbrowser window and search for a given phrase in google
     webbrowser.open_new('https://www.google.com/search?q=' + search_data)
     # report finishing task
     return 'Wyszukiwanie zakończone'
 
-# check weather in given city
+#   check weather in given city
 def igor_weather(location):
     # open weather api key
     weather_key = '8cbfad668c33b1bdce19655af03e5458'
@@ -51,17 +51,19 @@ def igor_weather(location):
 #     shopping_list.append(shopping_item)
 #     return shopping_list
 
-#play youtube
+#   play youtube
 def igor_youtube(youtube_search):
     youtube_search_result = VideosSearch(youtube_search, limit=1).result()
     webbrowser.open_new(youtube_search_result["result"][0]["link"])
     return ('Wyszukiwanie zakończone. Wyszukiwana fraza to: ' + youtube_search)
 
+#   set system volume
 def igor_volume(volume):
     am = alsaaudio.Mixer()
     base_volume = am.getvolume()
     if volume == 'głośniej':
             subprocess.call(["amixer", "-D", "pulse", "sset", "Master", str(base_volume[0] + 10 ) + '%'])
+            print('Głośność: ' + str(base_volume[0]))
     if volume == 'ciszej':
-                    subprocess.call(["amixer", "-D", "pulse", "sset", "Master", str(base_volume[0] - 10 ) + '%'])
-
+            subprocess.call(["amixer", "-D", "pulse", "sset", "Master", str(base_volume[0] - 10 ) + '%'])
+            print('Głośność: ' + str(base_volume[0]))
