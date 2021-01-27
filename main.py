@@ -4,6 +4,7 @@ import speech_recognition as sr
 import speak
 import mailer
 
+
 while True:
     print("slucham")
     # listen for wake word
@@ -59,6 +60,11 @@ while True:
                     speak.igor_speak('Co włączyć?')
                     youtube_search = listen.igor_listen()
                     icmd.igor_youtube(youtube_search)
+                if 'encyklopedia' in command:
+                    speak.playsound.playsound(r'audio/static/search.mp3')
+                    wikipedia_search = listen.igor_listen()
+                    wikipedia_report = icmd.igor_wikipedia(wikipedia_search)
+                    speak.igor_speak(wikipedia_report)
             # error handling - unknown command
             except sr.UnknownValueError:
                 print('Nie rozumiem polecenia')

@@ -5,6 +5,7 @@ import json
 import alsaaudio
 from datetime import datetime, date
 from youtubesearchpython import VideosSearch
+import wikipedia
 
 
 
@@ -32,8 +33,6 @@ def igor_weather(location):
     # open wather api endpoint
     weather_url = 'https://api.openweathermap.org/data/2.5/weather?q={}&appid={}&units=metric&lang=pl'.format(
         location, weather_key)
-    # send request to weather api
-    weather_response = requests.get(weather_url)
     # load api response to a json file
     weather_response_data = json.loads(weather_response.text)
     # creating list for weather conditions to append to
@@ -67,3 +66,10 @@ def igor_volume(volume):
     if volume == 'ciszej':
             subprocess.call(["amixer", "-D", "pulse", "sset", "Master", str(base_volume[0] - 10 ) + '%'])
             print('Głośność: ' + str(base_volume[0]))
+
+
+def igor_wikipedia(wikipedia_search):
+    wikipedia.set_lang("pl")
+    wikipedia_search_result = wikipedia.page(wikipedia_search)
+    return(wikipedia_search_result.summary)
+
