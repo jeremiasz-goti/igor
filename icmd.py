@@ -71,5 +71,10 @@ def igor_volume(volume):
 def igor_wikipedia(wikipedia_search):
     wikipedia.set_lang("pl")
     wikipedia_search_result = wikipedia.page(wikipedia_search)
-    return(wikipedia_search_result.summary)
+    return (wikipedia_search_result.summary)
 
+def igor_transport(bus_start, bus_stop):
+    bus_url = 'https://jakdojade.pl/poznan/trasa/?fn={}&?tn={}'.format(bus_start, bus_stop)
+    webbrowser.open_new(bus_url)
+
+igor_transport('burysława','małe garbary')

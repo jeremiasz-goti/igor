@@ -7,8 +7,10 @@ import mailer
 
 while True:
     print("slucham")
+    print("\033c", end="")
     # listen for wake word
     word = listen.igor_listen()
+
     try:
         # if wake word is activated, start giving cmmands
         if 'głośniej' or 'ciszej' in word:
